@@ -1,6 +1,6 @@
 <script setup lang="ts"></script>
 
 <template>
-    <div>Contato Page</div>
+    <div>Esqueci a senha</div>
    
 </template>
