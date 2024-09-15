@@ -1,6 +1,6 @@
 <script setup lang="ts"></script>
 
 <template>
-    <div>Home Page</div>
+    <div>Home Admin</div>
    
 </template>

@@ -1,9 +1,8 @@
 import AuthTemplate from "../layout/AuthTemplate.vue";
-import LoginPage from "../layout/Auth/LoginPage.vue";
-import ForgotPassword from "../layout/Auth/ForgotPassword.vue";
+import LoginPage from "../pages/auth/LoginPage.vue";
+import ForgotPassword from "../pages/auth/ForgotPassword.vue";
 import DefaultLayout from "../layout/DefaultLayout.vue";
-import HomePage from "../pages/HomePage.vue";
-import ContactPage from "../pages/ContactPage.vue";
+import HomeAdmin from "../pages/admin/home/HomeAdmin.vue";
 
 export const routes = [
     {
@@ -28,14 +27,9 @@ export const routes = [
         children:[
             {
                 path: '',
-                component: HomePage,
+                component: HomeAdmin,
                 name: 'admin.home'
             },
-            {
-                path: 'contato',
-                component: ContactPage,
-                name: 'admin.contact'
-            }
         ]
     },
 ]
