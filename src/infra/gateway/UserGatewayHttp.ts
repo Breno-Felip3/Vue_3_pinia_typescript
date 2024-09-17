@@ -1,14 +1,25 @@
-import User from "../../entities/User";
 import HttpClientRequests from "../http/HttpClientRequests";
+import { NAME_TOKEN } from '../../utils/constants';
+import User from "../../entities/User";
 
 export default class UserGatewayHttp
 {
-    async login(email: string, password: string): Promise<User>{
+    async login(email: string, password: string): Promise<Response>{
         const device_name = `vueApp${navigator.userAgent}`
         return await HttpClientRequests.post('/login', {
             email,
             password,
             device_name
-        });
+        })
+        .then(response => {
+            localStorage.setItem(NAME_TOKEN, response.data.token)
+            return Promise.resolve(response)
+        })
+    }
+
+    async getMe(): Promise<User>{
+        const response = await HttpClientRequests.withAuthorization().get('/me');
+        const {id, name, email} = response.data
+        return new User(id, name, email)
     }
 }
