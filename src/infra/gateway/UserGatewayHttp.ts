@@ -1,6 +1,7 @@
 import HttpClientRequests from "../http/HttpClientRequests";
 import { NAME_TOKEN } from '../../utils/constants';
 import User from "../../entities/User";
+import Permission from "../../entities/Permission";
 
 export default class UserGatewayHttp
 {
@@ -24,7 +25,13 @@ export default class UserGatewayHttp
                 localStorage.removeItem(NAME_TOKEN)
             }
         })
-        const {id, name, email} = response.data
-        return new User(id, name, email)
+        const {id, name, email, permissions} = response.data
+        const user = new User(id, name, email);
+
+        const permissionsUser: Permission[] = permissions.map((permission: any) => {
+            return new Permission(permission.id, permission.name, permission.description)
+        });
+        user.syncPermissions(permissionsUser);
+        return user;
     }
 }
