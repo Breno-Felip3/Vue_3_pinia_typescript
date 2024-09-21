@@ -18,7 +18,12 @@ export default class UserGatewayHttp
     }
 
     async getMe(): Promise<User>{
-        const response = await HttpClientRequests.withAuthorization().get('/me');
+        const response = await HttpClientRequests.withAuthorization().get('/me')
+        .catch(error => {
+            if(error.response.status === 401){
+                localStorage.removeItem(NAME_TOKEN)
+            }
+        })
         const {id, name, email} = response.data
         return new User(id, name, email)
     }
